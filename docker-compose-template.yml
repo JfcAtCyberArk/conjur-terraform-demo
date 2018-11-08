@@ -1,0 +1,22 @@
+version: '3'
+services:
+  terraform:
+    container_name: terraform
+    build:
+      context: .
+      dockerfile: Dockerfile.terraform
+      
+    entrypoint: sleep infinity
+    environment:
+      CONJUR_APPLIANCE_URL: "https://{{ CONJUR_DNS_NAME }}/api"
+      CONJUR_ACCOUNT: "{{ CONJUR_ACCOUNT }}"
+      CONJUR_AUTHN_LOGIN: "{{ CONJUR_AUTHN_LOGIN }}"
+      CONJUR_AUTHN_API_KEY: "{{ CONJUR_AUTHN_API_KEY }}"
+      CONJUR_CERT_FILE: "/etc/conjur.pem"
+      CONJUR_VERSION: "{{ CONJUR_VERSION }}"
+      TF_LOG: "${TF_LOG:-INFO}"
+    working_dir: /src
+    volumes:
+      - $PWD/terraform:/src
+    extra_hosts:
+      - "{{ CONJUR_DNS_NAME }}:{{ CONJUR_IP }}"
