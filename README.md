@@ -1,5 +1,5 @@
 # conjur-terraform-demo
-Demonstration of the use of the Conjur plugin for terraform
+Conjur provider for terraform - demo
 
 ## How it works 
 1 - The docker-compose file is used to deploy a terraform server.
